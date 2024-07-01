@@ -26,14 +26,44 @@ const App = () => {
     setPoints(copy);
   };
 
+  let mostVote = 0;
+  Object.keys(points).forEach((key) => {
+    if (points[key] > points[mostVote]) {
+      mostVote = key;
+    }
+  });
+  console.log(mostVote);
+
   return (
     <>
-      <div>{anecdotes[selected]}</div>
-      <div>has {points[selected]} votes</div>
-      <button onClick={handleVote}>vote</button>
-      <button onClick={randomNumber}>next anecdote</button>
+      <Anecdote anecdotes={anecdotes} selected={selected} points={points} handleVote={handleVote} randomNumber={randomNumber} />
+      <MostVote anecdotes={anecdotes} mostVote={mostVote} points={points} />
     </>
   );
 };
 
 export default App;
+
+const Anecdote = (props) => {
+  return (
+    <div>
+      <h1>Anecdote of the day</h1>
+      <div>{props.anecdotes[props.selected]}</div>
+      <div>has {props.points[props.selected]} votes</div>
+      <button onClick={props.handleVote}>vote</button>
+      <button onClick={props.randomNumber}>next anecdote</button>
+    </div>
+  );
+};
+
+const MostVote = (props) => {
+  if (props.points[props.mostVote] > 0) {
+    return (
+      <div>
+        <h1>Anecdote with most votes</h1>
+        <div>{props.anecdotes[props.mostVote]}</div>
+        <div>has {props.points[props.mostVote]} votes</div>
+      </div>
+    );
+  }
+};
