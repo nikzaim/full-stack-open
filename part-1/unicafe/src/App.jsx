@@ -26,7 +26,7 @@ const App = () => {
 
   const total = good * score.good + neutral * score.neutral + bad * score.bad;
 
-  const positive = (good / all) * 100;
+  const positive = (good / all) * 100 + " %";
 
   return (
     <div>
@@ -58,12 +58,21 @@ const Statistics = (props) => {
   return (
     <>
       <h1>statistics</h1>
-      <p>good {props.good}</p>
-      <p>neutral {props.neutral}</p>
-      <p>bad {props.bad}</p>
-      <p>all {props.all}</p>
-      <p>average {props.total / props.all}</p>
-      <p>positive {props.positive} %</p>
+      <StatisticLine text="good" value={props.good} />
+      <StatisticLine text="neutral" value={props.neutral} />
+      <StatisticLine text="bad" value={props.bad} />
+      <StatisticLine text="all" value={props.all} />
+      <StatisticLine text="average" value={props.total / props.all} />
+      <StatisticLine text="positive" value={props.positive} />
     </>
+  );
+};
+
+const StatisticLine = (props) => {
+  const { text, value } = props;
+  return (
+    <p>
+      {text} {value}
+    </p>
   );
 };
